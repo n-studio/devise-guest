@@ -1,0 +1,26 @@
+= devise-guest
+
+Concern:
+
+include DeviseGuestConcern
+
+Helper methods:
+
+current_or_guest_user
+
+rake devise_guest_engine:install:migrations
+
+merge_guest_user_with_user(user:, guest_user:)
+
+user.guest_users
+
+guest_user.owner_user
+
+class Users::SessionsController < Devise::SessionsController
+  # POST /resource/sign_in
+  def create
+    session[:merge_guest_user] = !!params[:merge_guest_user]
+    super
+    current_or_guest_user
+  end
+end
