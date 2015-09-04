@@ -17,13 +17,20 @@ module DeviseGuest
             current_user.guest_users << guest_user
             merge_guest_user_with_user(user: current_user, guest_user: guest_user)
           end
-          guest_user(with_retry = false).try(:destroy)
+          if destroy_guest_if_login || session[:merge_guest_user]
+            guest_user(false).try(:destroy)
+          end
           session[:guest_user_id] = nil
         end
         current_user
       else
         guest_user
       end
+    end
+
+    def destroy_guest_if_login
+      # override
+      false
     end
 
     def merge_guest_user_with_user(user:, guest_user:)
