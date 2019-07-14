@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150716193653) do
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -33,5 +32,4 @@ ActiveRecord::Schema.define(version: 20150716193653) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["owner_user_id_id"], name: "index_users_on_owner_user_id_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
 end
